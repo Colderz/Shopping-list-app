@@ -1,9 +1,10 @@
-package pakiet.arkadiuszzimny.shoppinglist
+package pakiet.arkadiuszzimny.shoppinglist.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import pakiet.arkadiuszzimny.shoppinglist.data.db.entities.ShoppingItem
 
 @Database(
     entities = [ShoppingItem::class],
@@ -22,7 +23,7 @@ abstract class ShoppingDatabase: RoomDatabase() {
         //funkcja wykonywana za każdym utwoerzeniem instancji ShopingDatabase
         //jeśli instancja to null - wykonujemy synchronized, a w nim tworzymy tę bazę
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-            instance ?: createDatabase(context).also { instance=it }
+            instance ?: createDatabase(context).also { instance =it }
         }
 
         private fun createDatabase(context: Context) =
