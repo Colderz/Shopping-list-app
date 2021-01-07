@@ -6,21 +6,25 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_shopping.*
+import org.kodein.di.android.kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.generic.instance
 import pakiet.arkadiuszzimny.shoppinglist.R
 import pakiet.arkadiuszzimny.shoppinglist.data.db.ShoppingDatabase
 import pakiet.arkadiuszzimny.shoppinglist.data.db.entities.ShoppingItem
 import pakiet.arkadiuszzimny.shoppinglist.data.repositories.ShoppingRepository
 import pakiet.arkadiuszzimny.shoppinglist.other.ShoppingItemAdapter
 
-class ShoppingActivity : AppCompatActivity() {
+class ShoppingActivity : AppCompatActivity(), KodeinAware {
+
+    //stosowny import
+    override val kodein by kodein()
+
+    private val factory: ShoppingViewModelFactory by instance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping)
-
-        //TODO: add dependency injection
-        val database = ShoppingDatabase(this)
-        val repository = ShoppingRepository(database)
-        val factory = ShoppingViewModelFactory(repository)
 
         val viewModel = ViewModelProviders.of(this, factory).get(ShoppingViewModel::class.java)
 
