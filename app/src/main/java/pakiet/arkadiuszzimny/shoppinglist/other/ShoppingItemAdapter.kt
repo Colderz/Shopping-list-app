@@ -41,7 +41,7 @@ class ShoppingItemAdapter(
         holder.itemView.ivMinus.setOnClickListener {
             if(curShoppingItem.amount > 0) {
                 curShoppingItem.amount--
-                viewModel.delete(curShoppingItem)
+                viewModel.upsert(curShoppingItem)
             }
         }
     }

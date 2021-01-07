@@ -17,11 +17,12 @@ class ShoppingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping)
 
+        //TODO: add dependency injection
         val database = ShoppingDatabase(this)
         val repository = ShoppingRepository(database)
         val factory = ShoppingViewModelFactory(repository)
 
-        val viewModel = ViewModelProviders.of(this).get(ShoppingViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, factory).get(ShoppingViewModel::class.java)
 
         val adapter = ShoppingItemAdapter(listOf(), viewModel)
 
